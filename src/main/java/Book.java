@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Book {
 
     private final String bookTitle;
@@ -27,5 +29,19 @@ public class Book {
 
     public String getBookISBN() {
         return bookISBN;
+    }
+
+    //Equal books means equal ISBNs
+    @Override
+    public boolean equals(Object anotherBook) {
+        if (this == anotherBook) return true;
+        if (anotherBook == null || getClass() != anotherBook.getClass()) return false;
+        Book book = (Book) anotherBook;
+        return bookISBN.equals(book.bookISBN);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bookISBN);
     }
 }

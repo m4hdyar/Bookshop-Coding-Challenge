@@ -9,7 +9,8 @@ import org.junit.jupiter.api.Test;
     2- Add a book to the set and get that book by ISBN
     3- Get a book when the book exists in the set
     4- Get a book when the book does not exist in the set
-    5- Add two identical books to the list
+    5- Add two identical books to the set
+    6- Add two nonidentical books to the set
  */
 class BookISBNSetTest {
     Book firstTestBook;
@@ -82,11 +83,26 @@ class BookISBNSetTest {
     }
 
     @Test
-    void addTwoIdenticalBookToSet(){
+    void addTwoBooksWithIdenticalISBNToSetShouldNotAddSecondBook(){
         boolean isAddingSuccessful;
         testBookISBNList.addBook(firstTestBook);
-        isAddingSuccessful=testBookISBNList.addBook(firstTestBook);
+
+        Book secondBookWithEqualISBN=new Book(firstTestBook.getBookTitle(),firstTestBook.getBookPageNumber(),firstTestBook.getBookGenre(),firstTestBook.getBookISBN());
+        isAddingSuccessful=testBookISBNList.addBook(secondBookWithEqualISBN);
+
         Assertions.assertFalse(isAddingSuccessful);
         Assertions.assertEquals(1,testBookISBNList.getSetSize());
+    }
+    @Test
+    void addTwoBooksWithDifferentISBNToSetShouldAddSecondBook(){
+        boolean isAddingSuccessful;
+        testBookISBNList.addBook(firstTestBook);
+
+        Book secondBookWithEqualISBN=new Book(firstTestBook.getBookTitle(),firstTestBook.getBookPageNumber(),firstTestBook.getBookGenre(),
+                secondTestBook.getBookISBN());
+        isAddingSuccessful=testBookISBNList.addBook(secondBookWithEqualISBN);
+
+        Assertions.assertTrue(isAddingSuccessful);
+        Assertions.assertEquals(2,testBookISBNList.getSetSize());
     }
 }
