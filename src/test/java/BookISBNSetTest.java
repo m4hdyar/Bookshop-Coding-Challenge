@@ -1,6 +1,5 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
@@ -12,9 +11,9 @@ import org.junit.jupiter.api.Test;
     4- Get a book when the book does not exist in the set
     5- Add two identical books to the list
  */
-class BookISBNListTest {
+class BookISBNSetTest {
     Book firstTestBook;
-    BookISBNList testBookISBNList;
+    BookISBNSet testBookISBNList;
     String firstBookTitle ="Title",
             firstBookGenre ="Adventure",
             firstBookISBN ="978-3442267819";
@@ -33,11 +32,11 @@ class BookISBNListTest {
 
     @BeforeEach
     void BookISBNList(){
-        testBookISBNList= new BookISBNList();
+        testBookISBNList= new BookISBNSet();
     }
 
     @Test
-    void addingABookToTheSet(){
+    void addABookToTheSet(){
         testBookISBNList.addBook(firstTestBook);
         Book actualBook = testBookISBNList.getBookByISBN(firstBookISBN);
         Assertions.assertEquals(firstTestBook,actualBook);

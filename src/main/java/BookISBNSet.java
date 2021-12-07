@@ -1,7 +1,7 @@
 import java.util.HashSet;
 import java.util.Set;
 
-public class BookISBNList {
+public class BookISBNSet {
 
     private final Set<Book> bookISBNSet = new HashSet<>();
 
