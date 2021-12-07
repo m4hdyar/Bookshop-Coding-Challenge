@@ -8,7 +8,8 @@ class BookTest {
     Book testBook;
     String bookTitle="Title",
             bookGenre="Adventure",
-            bookISBN="978-3442267819";
+            bookISBN="978-3442267819",
+            anotherISBN="978-3442267829";
     int bookPageNumber=532;
 
     @BeforeEach
@@ -38,4 +39,19 @@ class BookTest {
     }
 
 
+    @Test
+    void twoEqualBooksMeansTwoEqualISBN() {
+        Book testBook2= new Book(testBook.getBookTitle(),testBook.getBookPageNumber(),testBook.getBookGenre(),testBook.getBookISBN());
+        Assertions.assertEquals(testBook, testBook2);
+    }
+
+    @Test
+    void twoUnequalBooksMeansTwoUnequalISBN() {
+        Book testBook2= new Book(testBook.getBookTitle(),testBook.getBookPageNumber(),testBook.getBookGenre(),"Another-ISBN");
+        Assertions.assertNotEquals(testBook, testBook2);
+    }
+
+    @Test
+    void testHashCode() {
+    }
 }
