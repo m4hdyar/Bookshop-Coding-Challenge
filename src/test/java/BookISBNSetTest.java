@@ -1,3 +1,4 @@
+import Util.SampleData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,17 +14,19 @@ import org.junit.jupiter.api.Test;
     6- Add two nonidentical books to the set
  */
 class BookISBNSetTest {
-    Book firstTestBook;
     BookISBNSet testBookISBNList;
-    String firstBookTitle ="Title",
-            firstBookGenre ="Adventure",
-            firstBookISBN ="978-3442267819";
-    int firstBookPageNumber =532;
+
+    Book firstTestBook;
+    String firstBookTitle = SampleData.getBookName(0),
+            firstBookGenre =SampleData.getBookGenre(0),
+            firstBookISBN =SampleData.getValidISBN(0);
+    int firstBookPageNumber =SampleData.getBookPageNumbers(0);
+
     Book secondTestBook;
-    String secondBookTitle="Title2",
-            secondBookGenre="Thriller",
-            secondBookISBN="978-3332267812";
-    int secondBookPageNumber=213;
+    String secondBookTitle=SampleData.getBookName(1),
+            secondBookGenre=SampleData.getBookGenre(1),
+            secondBookISBN=SampleData.getValidISBN(1);
+    int secondBookPageNumber=SampleData.getBookPageNumbers(1);
 
     @BeforeEach
     void createBook(){

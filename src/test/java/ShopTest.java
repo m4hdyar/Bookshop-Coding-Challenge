@@ -1,3 +1,4 @@
+import Util.SampleData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,16 +17,17 @@ import org.junit.jupiter.api.Test;
  */
 class ShopTest {
     Shop testShop;
-    int testShopID=1;
-    String testShopName="Book Store";
-    long testShopSales=500;
+    int testShopID=SampleData.getShopID(0);
+    String testShopName= SampleData.getShopName(0);
+    long testShopSales=SampleData.getShopSalesInCents(0);
 
 
     Book firstTestBook;
-    String firstBookTitle ="Title",
-            firstBookGenre ="Adventure",
-            firstBookISBN ="978-3442267819";
-    int firstBookPageNumber =532;
+    String firstBookTitle =SampleData.getBookName(0),
+            firstBookGenre =SampleData.getBookGenre(0),
+            firstBookISBN =SampleData.getValidISBN(0);
+    int firstBookPageNumber =SampleData.getBookPageNumbers(0);
+
     int firstTestBookPrice = 100;
     int firstTestBookQuantity = 100;
 

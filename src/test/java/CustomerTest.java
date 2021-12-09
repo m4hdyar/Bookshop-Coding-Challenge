@@ -1,12 +1,14 @@
+import Util.SampleData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class CustomerTest {
 
-    String testFirstName ="Max";
-    String testLastName ="Mustermann";
-    int testMoneyInCents=100;
+    String testFirstName = SampleData.getCustomerFirstName(0);
+    String testLastName =SampleData.getCustomerLastName(0);
+    int testMoneyInCents=SampleData.getCustomerMoneyInCents(0);
+
     Customer testCustomer;
 
     @BeforeEach

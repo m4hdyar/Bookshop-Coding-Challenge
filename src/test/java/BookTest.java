@@ -1,3 +1,4 @@
+import Util.SampleData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,11 +7,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BookTest {
     Book testBook;
-    String bookTitle="Title",
-            bookGenre="Adventure",
-            bookISBN="978-3442267819",
-            anotherISBN="978-3442267829";
-    int bookPageNumber=532;
+    String bookTitle= SampleData.getBookName(0),
+            bookGenre=SampleData.getBookGenre(0),
+            bookISBN=SampleData.getValidISBN(0);
+    int bookPageNumber=SampleData.getBookPageNumbers(0);
 
     @BeforeEach
     void createBook(){
