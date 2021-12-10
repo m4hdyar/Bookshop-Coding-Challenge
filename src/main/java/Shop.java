@@ -9,6 +9,7 @@ public class Shop {
 
     private final Set<StockEntity> stockSet = new HashSet<>();
 
+
     public Shop(int ID, String name, long sales) {
         this.ID = ID;
         this.name = name;

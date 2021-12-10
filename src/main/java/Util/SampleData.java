@@ -9,6 +9,9 @@ public abstract class SampleData {
     private static final String[] bookGenres = {"Adventure","Adventure","Adventure","Adventure","Adventure"};
     private static final int[] bookPageNumbers = {100,250,351,400,532};
 
+    private static final int[] stockPriceInCents = {200,300,400,600,700};
+    private static final int[] stockQuantity = {100, 300, 400, 700, 800};
+
     //Customers
     private static final String[] customerFirstNames = {"Customer1", "Customer2", "Customer3", "Customer4", "Customer5"};
     private static final String[] customerLastNames = {"LastName1", "LastName2", "LastName3", "LastName4", "LastName5"};
@@ -34,6 +37,12 @@ public abstract class SampleData {
     }
     public static int getBookPageNumbers(int index){
         return bookPageNumbers[index];
+    }
+    public static int getStockPriceInCents(int index){
+        return stockPriceInCents[index];
+    }
+    public static int getStockQuantity(int index){
+        return stockQuantity[index];
     }
 
     //Customer methods

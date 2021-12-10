@@ -31,8 +31,7 @@ class ShopTest {
     int firstTestBookPrice = 100;
     int firstTestBookQuantity = 100;
 
-    int testQuantity=300;
-    int testPrice=100;
+
     StockEntity testStockEntity;
 
 
@@ -40,7 +39,7 @@ class ShopTest {
     void createShop(){
         testShop = new Shop(testShopID,testShopName,testShopSales);
         firstTestBook = new Book(firstBookTitle, firstBookPageNumber, firstBookGenre, firstBookISBN);
-        testStockEntity=new StockEntity();
+        testStockEntity=new StockEntity(firstTestBook,firstTestBookPrice,firstTestBookQuantity);
     }
 
     @Test
@@ -69,16 +68,40 @@ class ShopTest {
 
     }
     @Test
-    void addNewValidISBNStockEntityShouldIncreaseStockSizeBy1(){
+    void addANewValidISBNStockEntityShouldIncreaseStockSizeBy1(){
         int stockSetSizeBeforeTest = testShop.getStockSetSize();
         testShop.addStockEntityToStock(testStockEntity);
         Assertions.assertEquals(stockSetSizeBeforeTest+1,testShop.getStockSetSize());
     }
+
     @Test
     void addNewInvalidISBNStockEntityShouldThrowException(){
+        Book invalidISBNBook = new Book(SampleData.getBookName(0),SampleData.getBookPageNumbers(1),SampleData.getBookGenre(0),SampleData.getInvalidISBN(0));
+        int stockSetSizeBeforeTest = testShop.getStockSetSize();
+        Assertions.assertThrows(IllegalArgumentException.class,() ->testShop.addStockEntityToStock(testStockEntity));
+        System.out.println("You could reach me.");
+        Assertions.assertEquals(stockSetSizeBeforeTest,testShop.getStockSetSize());
     }
 
-    //Stock related Tests
+    @Test
+    void ifISBNExistsUpdateQuantityAndPrice(){
+        Book sameISBNBook = new Book(SampleData.getBookName(0),SampleData.getBookPageNumbers(0),SampleData.getBookGenre(0),SampleData.getInvalidISBN(0));
+        int priceOfNewStock=777;
+        int quantityOfNewStock=250;
+        StockEntity sameISBNStockEntity =new StockEntity(sameISBNBook,priceOfNewStock,quantityOfNewStock);
+
+        int stockEntityPriceBeforeTest = testStockEntity.getPriceInCents();
+        int stockEntityQuantityBeforeTest = testStockEntity.getQuantity();
+        testShop.addStockEntityToStock(testStockEntity);
+        int stockSetSizeBeforeTest = testShop.getStockSetSize();
+
+        testShop.addStockEntityToStock(sameISBNStockEntity);
+
+        Assertions.assertEquals(stockSetSizeBeforeTest,testShop.getStockSetSize());
+        Assertions.assertEquals(stockEntityPriceBeforeTest+priceOfNewStock,testStockEntity.getPriceInCents());
+        Assertions.assertEquals(stockEntityQuantityBeforeTest+quantityOfNewStock,testStockEntity.getQuantity());
+    }
+
 
 
 }
