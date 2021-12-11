@@ -16,9 +16,9 @@ import org.junit.jupiter.api.Test;
     3- Test add "negative money" to sales
     4- Test add a book to the shop
     5- Add new Stock Entity with valid ISBN to shop stock.
-    In Progress:
     6- Don't add Stock Entity with invalid ISBN to shop stock.
     7- Only update quantity and price if new Stock Entity has a book that already exist in the stock.
+    In Progress:
  */
 class ShopTest {
     Shop testShop;
