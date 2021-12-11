@@ -41,8 +41,9 @@ class ShopTest {
 
     static BookISBNSet bookISBNSet;
     @BeforeAll
-    static void createISBNList(){
+    static void createISBNSet(){
         bookISBNSet=new BookISBNSet();
+        SampleData.addAllValidISBNsToBookISBNSet(bookISBNSet);
     }
 
     @BeforeEach
