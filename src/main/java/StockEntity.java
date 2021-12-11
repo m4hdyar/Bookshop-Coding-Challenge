@@ -1,17 +1,17 @@
 public class StockEntity {
-    private Book book;
+    private String bookISBN;
     private int priceInCents;
     private int quantity;
 
-    public StockEntity(Book book, int priceInCents, int quantity) throws IllegalArgumentException{
+    public StockEntity(String bookISBN, int priceInCents, int quantity) throws IllegalArgumentException{
         if(priceInCents<0 || quantity<0) throw new IllegalArgumentException("Price or Quantity can not be negative");
-        this.book = book;
+        this.bookISBN = bookISBN;
         this.priceInCents = priceInCents;
         this.quantity = quantity;
     }
 
-    public Book getBook() {
-        return book;
+    public String getBookISBN() {
+        return bookISBN;
     }
 
     public int getPriceInCents() {

@@ -6,24 +6,19 @@ import org.junit.jupiter.api.Test;
 class StockEntityTest {
 
     StockEntity testStockEntity;
-    Book firstTestBook;
-    String firstBookTitle = SampleData.getBookName(0),
-            firstBookGenre =SampleData.getBookGenre(0),
-            firstBookISBN =SampleData.getValidISBN(0);
-    int firstBookPageNumber =SampleData.getBookPageNumbers(0);
+    String firstTestBookISBN =SampleData.getValidISBN(0);
 
     int stockPriceInCents=SampleData.getStockPriceInCents(0);
     int stockQuantity=SampleData.getStockQuantity(0);
 
     @BeforeEach
     void createStockEntity(){
-        firstTestBook = new Book(firstBookTitle, firstBookPageNumber, firstBookGenre, firstBookISBN);
-        testStockEntity = new StockEntity(firstTestBook,stockPriceInCents,stockQuantity);
+        testStockEntity = new StockEntity(firstTestBookISBN,stockPriceInCents,stockQuantity);
     }
 
     @Test
-    void getBook() {
-        Assertions.assertEquals(firstTestBook, testStockEntity.getBook());
+    void getBookISBN() {
+        Assertions.assertEquals(firstTestBookISBN, testStockEntity.getBookISBN());
     }
 
     @Test
@@ -38,7 +33,7 @@ class StockEntityTest {
 
     @Test
     void updateWithNewStockShouldChangePriceAndUpdateQuantity(){
-        StockEntity newStockEntity = new StockEntity(testStockEntity.getBook(), 175132, testStockEntity.getQuantity());
+        StockEntity newStockEntity = new StockEntity(testStockEntity.getBookISBN(), 175132, testStockEntity.getQuantity());
         int priceBeforeTest=testStockEntity.getPriceInCents();
         int quantityBeforeTest=testStockEntity.getQuantity();
 
@@ -49,11 +44,11 @@ class StockEntityTest {
 
     @Test
     void createStockEntityWithNegativePriceShouldThrowException(){
-        Assertions.assertThrows(IllegalArgumentException.class,()->new StockEntity(firstTestBook,-100,300));
+        Assertions.assertThrows(IllegalArgumentException.class,()->new StockEntity(firstTestBookISBN,-100,300));
     }
     @Test
     void createStockEntityWithNegativeQuantityShouldThrowException(){
-        Assertions.assertThrows(IllegalArgumentException.class,()->new StockEntity(firstTestBook,100,-300));
+        Assertions.assertThrows(IllegalArgumentException.class,()->new StockEntity(firstTestBookISBN,100,-300));
     }
 
 }
