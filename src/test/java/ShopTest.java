@@ -26,13 +26,7 @@ class ShopTest {
     String testShopName= SampleData.getShopName(0);
     long testShopSales=SampleData.getShopSalesInCents(0);
 
-
-    Book firstTestBook;
-    String firstBookTitle =SampleData.getBookName(0),
-            firstBookGenre =SampleData.getBookGenre(0),
-            firstBookISBN =SampleData.getValidISBN(0);
-    int firstBookPageNumber =SampleData.getBookPageNumbers(0);
-
+    String firstTestBookISBN =SampleData.getValidISBN(0);
     int firstTestBookPrice = 100;
     int firstTestBookQuantity = 100;
 
@@ -49,8 +43,7 @@ class ShopTest {
     @BeforeEach
     void createShop(){
         testShop = new Shop(bookISBNSet,testShopID,testShopName,testShopSales);
-        firstTestBook = new Book(firstBookTitle, firstBookPageNumber, firstBookGenre, firstBookISBN);
-        testStockEntity=new StockEntity(firstBookISBN,firstTestBookPrice,firstTestBookQuantity);
+        testStockEntity=new StockEntity(firstTestBookISBN,firstTestBookPrice,firstTestBookQuantity);
     }
 
     @Test
