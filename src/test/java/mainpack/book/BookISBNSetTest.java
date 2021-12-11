@@ -1,3 +1,5 @@
+package mainpack.book;
+
 import mainpack.book.Book;
 import mainpack.book.BookISBNSet;
 import mainpack.utils.SampleData;

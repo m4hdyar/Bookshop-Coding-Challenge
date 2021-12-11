@@ -1,3 +1,5 @@
+package mainpack.book;
+
 import mainpack.book.Book;
 import mainpack.utils.SampleData;
 import org.junit.jupiter.api.Assertions;

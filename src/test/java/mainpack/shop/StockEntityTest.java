@@ -1,3 +1,5 @@
+package mainpack.shop;
+
 import mainpack.shop.StockEntity;
 import mainpack.utils.SampleData;
 import org.junit.jupiter.api.Assertions;

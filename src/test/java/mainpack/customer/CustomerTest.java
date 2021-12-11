@@ -1,3 +1,5 @@
+package mainpack.customer;
+
 import mainpack.customer.Customer;
 import mainpack.customer.InsufficientMoneyException;
 import mainpack.utils.SampleData;
