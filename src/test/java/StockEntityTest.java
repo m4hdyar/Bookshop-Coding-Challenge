@@ -3,11 +3,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class StockEntityTest {
 
-    StockEntity stockEntity;
+    StockEntity testStockEntity;
     Book firstTestBook;
     String firstBookTitle = SampleData.getBookName(0),
             firstBookGenre =SampleData.getBookGenre(0),
@@ -20,28 +18,33 @@ class StockEntityTest {
     @BeforeEach
     void createStockEntity(){
         firstTestBook = new Book(firstBookTitle, firstBookPageNumber, firstBookGenre, firstBookISBN);
-        stockEntity = new StockEntity(firstTestBook,stockPriceInCents,stockQuantity);
+        testStockEntity = new StockEntity(firstTestBook,stockPriceInCents,stockQuantity);
     }
 
     @Test
     void getBook() {
-        Assertions.assertEquals(firstTestBook,stockEntity.getBook());
+        Assertions.assertEquals(firstTestBook, testStockEntity.getBook());
     }
 
     @Test
     void getPriceInCents() {
-        Assertions.assertEquals(stockPriceInCents,stockEntity.getPriceInCents());
+        Assertions.assertEquals(stockPriceInCents, testStockEntity.getPriceInCents());
     }
 
     @Test
     void getQuantity() {
-        Assertions.assertEquals(stockQuantity,stockEntity.getQuantity());
+        Assertions.assertEquals(stockQuantity, testStockEntity.getQuantity());
     }
 
     @Test
-    void addQuantityBy100ShouldIncreaseQuantityBy100(){
-        int quantityBeforeTest=stockEntity.getQuantity();
-        stockEntity.addQuantity(100);
-        Assertions.assertEquals(quantityBeforeTest+100,stockEntity.getQuantity());
+    void updateWithNewStockShouldChangePriceAndUpdateQuantity(){
+        StockEntity newStockEntity = new StockEntity(testStockEntity.getBook(), testStockEntity.getPriceInCents()+100, testStockEntity.getQuantity());
+        int priceBeforeTest=testStockEntity.getPriceInCents();
+        int quantityBeforeTest=testStockEntity.getQuantity();
+
+        testStockEntity.updateWithStock(newStockEntity);
+        Assertions.assertEquals(priceBeforeTest+100,testStockEntity.getPriceInCents());
+        Assertions.assertEquals(quantityBeforeTest*2,testStockEntity.getQuantity());
     }
+
 }

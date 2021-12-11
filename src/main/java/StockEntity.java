@@ -21,7 +21,9 @@ public class StockEntity {
         return quantity;
     }
 
-    public void addQuantity(int quantityToAdd) {
-        quantity+=quantityToAdd;
+
+    public void updateWithStock(StockEntity newStockEntity) {
+        quantity+=newStockEntity.getQuantity();
+        priceInCents=newStockEntity.getPriceInCents();
     }
 }
