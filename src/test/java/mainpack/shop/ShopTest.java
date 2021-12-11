@@ -1,9 +1,6 @@
 package mainpack.shop;
 
-import mainpack.book.Book;
 import mainpack.book.BookISBNSet;
-import mainpack.shop.Shop;
-import mainpack.shop.StockEntity;
 import mainpack.utils.SampleData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -20,6 +17,7 @@ import org.junit.jupiter.api.Test;
     5- Add new Stock Entity with valid ISBN to shop stock.
     6- Don't add Stock Entity with invalid ISBN to shop stock.
     7- Only update quantity and price if new Stock Entity has a book that already exist in the stock.
+    8-
     In Progress:
  */
 class ShopTest {
@@ -107,6 +105,17 @@ class ShopTest {
         Assertions.assertEquals(stockEntityQuantityBeforeTest+quantityOfNewStock,testStockEntity.getQuantity());
     }
 
+    @Test
+    void twoEqualShopsMeansTwoEqualID() {
+        Shop testShop2= new Shop(bookISBNSet,testShop.getID(),testShop.getName(),testShop.getSales());
+        Assertions.assertEquals(testShop, testShop2);
+    }
+
+    @Test
+    void twoDifferentShopsMeansTwoDifferentID() {
+        Shop testShop2= new Shop(bookISBNSet,0,testShop.getName(),testShop.getSales());
+        Assertions.assertNotEquals(testShop, testShop2);
+    }
 
 
 }
