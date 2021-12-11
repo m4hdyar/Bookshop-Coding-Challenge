@@ -1,4 +1,4 @@
-package mainpack;
+package mainpack.customer;
 
 public class Customer {
     private String firstName;

@@ -48,7 +48,7 @@ public abstract class SampleData {
         return stockQuantity[index];
     }
 
-    //mainpack.Customer methods
+    //mainpack.customer.Customer methods
     public static String getCustomerFirstName(int index){
         return new String(customerFirstNames[index]);
     }

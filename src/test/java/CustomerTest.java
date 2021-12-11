@@ -1,5 +1,5 @@
-import mainpack.Customer;
-import mainpack.InsufficientMoneyException;
+import mainpack.customer.Customer;
+import mainpack.customer.InsufficientMoneyException;
 import mainpack.utils.SampleData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
