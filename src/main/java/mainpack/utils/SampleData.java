@@ -1,5 +1,4 @@
-package Util;
-
+package mainpack.utils;
 //I just provide sample data when you need.
 public abstract class SampleData {
     //Books
@@ -22,7 +21,7 @@ public abstract class SampleData {
     private static final String[] shopName={"Shop1","Shop2","Shop3","Shop4","Shop5"};
     private static final long[] shopSalesInCents={0,10000,20000,30000,40000,50000};
 
-    //Book methods
+    //mainpack.book.Book methods
     public static String getValidISBN(int index){
         return new String(validISBNs[index]);
     }
@@ -45,7 +44,7 @@ public abstract class SampleData {
         return stockQuantity[index];
     }
 
-    //Customer methods
+    //mainpack.Customer methods
     public static String getCustomerFirstName(int index){
         return new String(customerFirstNames[index]);
     }
@@ -56,7 +55,7 @@ public abstract class SampleData {
         return customerMoneyInCents[index];
     }
 
-    //Shop methods
+    //mainpack.shop.Shop methods
     public static int getShopID(int index){
         return shopID[index];
     }
@@ -67,4 +66,7 @@ public abstract class SampleData {
         return shopSalesInCents[index];
     }
 
+//    public static void addAllValidISBNsToBookISBNSet(mainpack.book.BookISBNSet bookISBNSet){
+//
+//    }
 }

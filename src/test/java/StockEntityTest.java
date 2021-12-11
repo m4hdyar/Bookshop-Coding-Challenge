@@ -1,4 +1,5 @@
-import Util.SampleData;
+import mainpack.shop.StockEntity;
+import mainpack.utils.SampleData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

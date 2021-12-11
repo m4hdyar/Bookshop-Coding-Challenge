@@ -1,3 +1,5 @@
+package mainpack;
+
 import java.util.Scanner;
 
 public class BookshopsSystem {

@@ -1,5 +1,10 @@
-import Util.SampleData;
+import mainpack.book.Book;
+import mainpack.book.BookISBNSet;
+import mainpack.shop.Shop;
+import mainpack.shop.StockEntity;
+import mainpack.utils.SampleData;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +18,7 @@ import org.junit.jupiter.api.Test;
     5- Add new Stock Entity with valid ISBN to shop stock.
     In Progress:
     6- Don't add Stock Entity with invalid ISBN to shop stock.
-    7- Add only quantity if new Stock Entity has a book that already exist in the stock.
+    7- Only update quantity and price if new Stock Entity has a book that already exist in the stock.
  */
 class ShopTest {
     Shop testShop;
@@ -34,12 +39,17 @@ class ShopTest {
 
     StockEntity testStockEntity;
 
+    static BookISBNSet bookISBNSet;
+    @BeforeAll
+    static void createISBNList(){
+        bookISBNSet=new BookISBNSet();
+    }
 
     @BeforeEach
     void createShop(){
-        testShop = new Shop(testShopID,testShopName,testShopSales);
+        testShop = new Shop(bookISBNSet,testShopID,testShopName,testShopSales);
         firstTestBook = new Book(firstBookTitle, firstBookPageNumber, firstBookGenre, firstBookISBN);
-        testStockEntity=new StockEntity(firstTestBook,firstTestBookPrice,firstTestBookQuantity);
+        testStockEntity=new StockEntity(firstBookISBN,firstTestBookPrice,firstTestBookQuantity);
     }
 
     @Test
@@ -76,21 +86,20 @@ class ShopTest {
 
     @Test
     void addNewInvalidISBNStockEntityShouldThrowException(){
-        Book invalidISBNBook = new Book(SampleData.getBookName(0),SampleData.getBookPageNumbers(1),SampleData.getBookGenre(0),SampleData.getInvalidISBN(0));
+        StockEntity invalidISBNBook = new StockEntity(SampleData.getInvalidISBN(0),SampleData.getStockPriceInCents(0),SampleData.getStockQuantity(0));
         int stockSetSizeBeforeTest = testShop.getStockSetSize();
-        Assertions.assertThrows(IllegalArgumentException.class,() ->testShop.addStockEntityToStock(testStockEntity));
+        Assertions.assertThrows(IllegalArgumentException.class,() ->testShop.addStockEntityToStock(invalidISBNBook));
         System.out.println("You could reach me.");
         Assertions.assertEquals(stockSetSizeBeforeTest,testShop.getStockSetSize());
     }
 
     @Test
-    void ifISBNExistsUpdateQuantityAndPrice(){
-        Book sameISBNBook = new Book(SampleData.getBookName(0),SampleData.getBookPageNumbers(0),SampleData.getBookGenre(0),SampleData.getInvalidISBN(0));
+    void ifISBNExistsInStockUpdateQuantityAndPrice(){
+        String sameISBN = SampleData.getValidISBN(0);
         int priceOfNewStock=777;
         int quantityOfNewStock=250;
-        StockEntity sameISBNStockEntity =new StockEntity(sameISBNBook,priceOfNewStock,quantityOfNewStock);
+        StockEntity sameISBNStockEntity =new StockEntity(sameISBN,priceOfNewStock,quantityOfNewStock);
 
-        int stockEntityPriceBeforeTest = testStockEntity.getPriceInCents();
         int stockEntityQuantityBeforeTest = testStockEntity.getQuantity();
         testShop.addStockEntityToStock(testStockEntity);
         int stockSetSizeBeforeTest = testShop.getStockSetSize();
@@ -98,7 +107,7 @@ class ShopTest {
         testShop.addStockEntityToStock(sameISBNStockEntity);
 
         Assertions.assertEquals(stockSetSizeBeforeTest,testShop.getStockSetSize());
-        Assertions.assertEquals(stockEntityPriceBeforeTest+priceOfNewStock,testStockEntity.getPriceInCents());
+        Assertions.assertEquals(priceOfNewStock,testStockEntity.getPriceInCents());
         Assertions.assertEquals(stockEntityQuantityBeforeTest+quantityOfNewStock,testStockEntity.getQuantity());
     }
 

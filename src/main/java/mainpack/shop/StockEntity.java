@@ -1,3 +1,5 @@
+package mainpack.shop;
+
 public class StockEntity {
     private String bookISBN;
     private int priceInCents;

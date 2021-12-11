@@ -1,9 +1,8 @@
-import Util.SampleData;
+import mainpack.book.Book;
+import mainpack.utils.SampleData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class BookTest {
     Book testBook;
