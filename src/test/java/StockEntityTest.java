@@ -47,4 +47,13 @@ class StockEntityTest {
         Assertions.assertEquals(quantityBeforeTest*2,testStockEntity.getQuantity());
     }
 
+    @Test
+    void createStockEntityWithNegativePriceShouldThrowException(){
+        Assertions.assertThrows(IllegalArgumentException.class,()->new StockEntity(firstTestBook,-100,300));
+    }
+    @Test
+    void createStockEntityWithNegativeQuantityShouldThrowException(){
+        Assertions.assertThrows(IllegalArgumentException.class,()->new StockEntity(firstTestBook,100,-300));
+    }
+
 }

@@ -3,7 +3,8 @@ public class StockEntity {
     private int priceInCents;
     private int quantity;
 
-    public StockEntity(Book book, int priceInCents, int quantity) {
+    public StockEntity(Book book, int priceInCents, int quantity) throws IllegalArgumentException{
+        if(priceInCents<0 || quantity<0) throw new IllegalArgumentException("Price or Quantity can not be negative");
         this.book = book;
         this.priceInCents = priceInCents;
         this.quantity = quantity;
