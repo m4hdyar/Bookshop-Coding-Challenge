@@ -1,5 +1,7 @@
 package mainpack.shop;
 
+import java.util.Objects;
+
 public class StockEntity {
     private String bookISBN;
     private int priceInCents;
@@ -24,6 +26,18 @@ public class StockEntity {
         return quantity;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StockEntity that = (StockEntity) o;
+        return Objects.equals(bookISBN, that.bookISBN);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bookISBN);
+    }
 
     public void updateWithStock(StockEntity newStockEntity) {
         quantity+=newStockEntity.getQuantity();

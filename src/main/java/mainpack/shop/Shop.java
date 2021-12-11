@@ -43,6 +43,7 @@ public class Shop {
         }
         return null;
     }
+
     public void addStockEntityToStock(StockEntity newStockEntity) throws IllegalArgumentException {
         StockEntity existingStockEntity = getStockEntityByISBN(newStockEntity.getBookISBN());
         if(existingStockEntity==null){
