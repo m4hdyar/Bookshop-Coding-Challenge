@@ -1,7 +1,5 @@
 package mainpack.customer;
 
-import mainpack.customer.Customer;
-import mainpack.customer.InsufficientMoneyException;
 import mainpack.utils.SampleData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 class CustomerTest {
 
+    int testCustomerID=SampleData.getCustomerID(0);
     String testFirstName = SampleData.getCustomerFirstName(0);
     String testLastName =SampleData.getCustomerLastName(0);
     int testMoneyInCents=SampleData.getCustomerMoneyInCents(0);
@@ -17,7 +16,7 @@ class CustomerTest {
 
     @BeforeEach
     void createCustomer(){
-        testCustomer = new Customer(testFirstName, testLastName,testMoneyInCents);
+        testCustomer = new Customer(testCustomerID, testFirstName, testLastName, testMoneyInCents);
     }
     @Test
     void getFirstName() {

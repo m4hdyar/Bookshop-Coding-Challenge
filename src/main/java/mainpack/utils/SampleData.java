@@ -16,6 +16,7 @@ public abstract class SampleData {
     private static final int[] stockQuantity = {100, 300, 400, 700, 800};
 
     //Customers
+    private static final int[] customerIDs={1530,1531,1532,1533,1534};
     private static final String[] customerFirstNames = {"Customer1", "Customer2", "Customer3", "Customer4", "Customer5"};
     private static final String[] customerLastNames = {"LastName1", "LastName2", "LastName3", "LastName4", "LastName5"};
     private static final int[]  customerMoneyInCents={100,1000,10000,10000,100000};
@@ -49,6 +50,9 @@ public abstract class SampleData {
     }
 
     //mainpack.customer.Customer methods
+    public static int getCustomerID(int index){
+        return customerIDs[index];
+    }
     public static String getCustomerFirstName(int index){
         return new String(customerFirstNames[index]);
     }

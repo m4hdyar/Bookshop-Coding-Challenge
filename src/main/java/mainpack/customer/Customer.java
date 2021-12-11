@@ -1,11 +1,13 @@
 package mainpack.customer;
 
 public class Customer {
+    public int customerID;
     private String firstName;
     private String lastName;
     private int moneyInCents;
 
-    public Customer(String firstName, String lastName, int moneyInCents) {
+    public Customer(int customerID, String firstName, String lastName, int moneyInCents) {
+        this.customerID=customerID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.moneyInCents = moneyInCents;
