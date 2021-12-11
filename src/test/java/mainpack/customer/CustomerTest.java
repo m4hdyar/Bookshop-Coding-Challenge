@@ -1,5 +1,6 @@
 package mainpack.customer;
 
+import mainpack.book.Book;
 import mainpack.utils.SampleData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,19 +20,20 @@ class CustomerTest {
         testCustomer = new Customer(testCustomerID, testFirstName, testLastName, testMoneyInCents);
     }
     @Test
+    void getCustomerID() {
+        Assertions.assertEquals(testCustomerID,testCustomer.getCustomerID());
+    }
+    @Test
     void getFirstName() {
         Assertions.assertEquals(testFirstName,testCustomer.getFirstName());
     }
-
     @Test
     void getLastName() {
 
         Assertions.assertEquals(testLastName,testCustomer.getLastName());
     }
-
     @Test
     void getMoneyInCents() {
-
         Assertions.assertEquals(testMoneyInCents,testCustomer.getMoneyInCents());
     }
 
@@ -75,6 +77,18 @@ class CustomerTest {
             return;
         }
         Assertions.fail();
+    }
+
+    @Test
+    void twoEqualCustomersMeansTwoEqualID() {
+        Customer testCustomer2= new Customer(testCustomer.getCustomerID(),testCustomer.getFirstName(),testCustomer.getLastName(),testCustomer.getMoneyInCents());
+        Assertions.assertEquals(testCustomer, testCustomer2);
+    }
+
+    @Test
+    void twoDifferentCustomersMeansTwoDifferentID() {
+        Customer testCustomer2= new Customer(0,testCustomer.getFirstName(),testCustomer.getLastName(),testCustomer.getMoneyInCents());
+        Assertions.assertNotEquals(testCustomer, testCustomer2);
     }
 
 

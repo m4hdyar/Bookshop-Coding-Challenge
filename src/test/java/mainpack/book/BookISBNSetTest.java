@@ -105,9 +105,9 @@ class BookISBNSetTest {
         boolean isAddingSuccessful;
         testBookISBNList.addBook(firstTestBook);
 
-        Book secondBookWithEqualISBN=new Book(firstTestBook.getBookTitle(),firstTestBook.getBookPageNumber(),firstTestBook.getBookGenre(),
+        Book secondBookWithDifferentISBN=new Book(firstTestBook.getBookTitle(),firstTestBook.getBookPageNumber(),firstTestBook.getBookGenre(),
                 secondTestBook.getBookISBN());
-        isAddingSuccessful=testBookISBNList.addBook(secondBookWithEqualISBN);
+        isAddingSuccessful=testBookISBNList.addBook(secondBookWithDifferentISBN);
 
         Assertions.assertTrue(isAddingSuccessful);
         Assertions.assertEquals(2,testBookISBNList.getSetSize());
