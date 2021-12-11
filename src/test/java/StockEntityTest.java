@@ -38,12 +38,12 @@ class StockEntityTest {
 
     @Test
     void updateWithNewStockShouldChangePriceAndUpdateQuantity(){
-        StockEntity newStockEntity = new StockEntity(testStockEntity.getBook(), testStockEntity.getPriceInCents()+100, testStockEntity.getQuantity());
+        StockEntity newStockEntity = new StockEntity(testStockEntity.getBook(), 175132, testStockEntity.getQuantity());
         int priceBeforeTest=testStockEntity.getPriceInCents();
         int quantityBeforeTest=testStockEntity.getQuantity();
 
         testStockEntity.updateWithStock(newStockEntity);
-        Assertions.assertEquals(priceBeforeTest+100,testStockEntity.getPriceInCents());
+        Assertions.assertEquals(175132,testStockEntity.getPriceInCents());
         Assertions.assertEquals(quantityBeforeTest*2,testStockEntity.getQuantity());
     }
 
