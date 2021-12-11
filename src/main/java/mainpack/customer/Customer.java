@@ -28,11 +28,11 @@ public class Customer {
         return moneyInCents;
     }
 
-    public void deductMoney(int amount) throws InsufficientMoneyException {
+    public void deductMoney(int amount) {
         if (moneyInCents>=amount){
             moneyInCents -= amount;
         }else{
-            throw new InsufficientMoneyException("Available money is not enough");
+            throw new IllegalStateException("Customer money can not be negative!");
         }
     }
     public void addMoney(int amount) throws IllegalArgumentException{

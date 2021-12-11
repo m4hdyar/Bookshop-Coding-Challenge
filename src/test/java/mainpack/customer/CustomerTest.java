@@ -1,6 +1,5 @@
 package mainpack.customer;
 
-import mainpack.book.Book;
 import mainpack.utils.SampleData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,7 +41,7 @@ class CustomerTest {
         int moneyToDeduct=testMoneyInCents/2;
         try{
             testCustomer.deductMoney(moneyToDeduct);
-        }catch (InsufficientMoneyException ex){
+        }catch (IllegalStateException ex){
             Assertions.fail();
         }
         Assertions.assertEquals(testMoneyInCents-moneyToDeduct,testCustomer.getMoneyInCents());
@@ -52,7 +51,7 @@ class CustomerTest {
         int moneyToDeduct=testMoneyInCents+1;
         try{
             testCustomer.deductMoney(moneyToDeduct);
-        }catch (InsufficientMoneyException ex){
+        }catch (IllegalStateException ex){
             return;
         }
         Assertions.fail();
