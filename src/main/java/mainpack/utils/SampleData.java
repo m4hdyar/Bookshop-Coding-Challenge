@@ -1,4 +1,8 @@
 package mainpack.utils;
+
+import mainpack.book.Book;
+import mainpack.book.BookISBNSet;
+
 //I just provide sample data when you need.
 public abstract class SampleData {
     //Books
@@ -66,7 +70,9 @@ public abstract class SampleData {
         return shopSalesInCents[index];
     }
 
-//    public static void addAllValidISBNsToBookISBNSet(mainpack.book.BookISBNSet bookISBNSet){
-//
-//    }
+    public static void addAllValidISBNsToBookISBNSet(BookISBNSet bookISBNSet){
+        for(int i=0;i<validISBNs.length;i++){
+            bookISBNSet.addBook(new Book(getBookName(i),getBookPageNumbers(i),getBookGenre(i),getValidISBN(i)));
+        }
+    }
 }
