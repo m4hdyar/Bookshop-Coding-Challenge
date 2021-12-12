@@ -1,11 +1,11 @@
 package mainpack.shop;
 
 import mainpack.book.BookISBNSet;
+import mainpack.book.Genre;
 import mainpack.utils.SampleData;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
+import java.util.Set;
 
 /*
     Test Notes:
@@ -22,6 +22,8 @@ import org.junit.jupiter.api.Test;
     11- ISBNExists should return true if the book exists
     12- ISBNExists should return false if the book not exists
     13- getBookPrice should return the price of the stock entity of that ISBN
+    14- getNewFilteredSet should return a set with 2 book when the shop has 2 books with matching Genre
+    15- getNewFilteredSet should return empty set when Genre does not match with books in the shop stock
     In Progress:
  */
 class ShopTest {
@@ -162,5 +164,32 @@ class ShopTest {
     void getBookPriceShouldReturnPriceOfThePriceOfStockEntity() {
         testShop.addStockEntityToStock(testStockEntity);
         Assertions.assertEquals(testStockEntity.getPriceInCents(),testShop.getBookPrice(testStockEntity.getBookISBN()));
+    }
+
+    @Test
+    void getNewFilteredSetWith2MatchingBooksInTheStockShouldReturnSetSize2() {
+        StockEntity secondTestStockEntity=new StockEntity(SampleData.getValidISBN(1),firstTestBookPrice,firstTestBookQuantity);
+        Assumptions.assumeTrue(bookISBNSet.getBookByISBN(testStockEntity.getBookISBN()).getBookGenre()==bookISBNSet.getBookByISBN(secondTestStockEntity.getBookISBN()).getBookGenre());
+
+        testShop.addStockEntityToStock(testStockEntity);
+        testShop.addStockEntityToStock(secondTestStockEntity);
+
+        Set<StockEntity> newFilteredSet= testShop.getNewFilteredSet(bookISBNSet.getBookByISBN(testStockEntity.getBookISBN()).getBookGenre());
+        Assertions.assertEquals(2,newFilteredSet.size());
+    }
+
+    @Test
+    void getNewFilteredSetShouldReturnEmptySetWithNoMatchingBooks() {
+        StockEntity secondTestStockEntity=new StockEntity(SampleData.getValidISBN(1),firstTestBookPrice,firstTestBookQuantity);
+        Genre testingGenre= SampleData.getBookGenre(2);
+
+        Assumptions.assumeTrue((bookISBNSet.getBookByISBN(testStockEntity.getBookISBN()).getBookGenre()!=testingGenre) &&
+                (bookISBNSet.getBookByISBN(testStockEntity.getBookISBN()).getBookGenre()!=testingGenre));
+
+        testShop.addStockEntityToStock(testStockEntity);
+        testShop.addStockEntityToStock(secondTestStockEntity);
+
+        Set<StockEntity> newFilteredSet= testShop.getNewFilteredSet(testingGenre);
+        Assertions.assertEquals(0,newFilteredSet.size());
     }
 }

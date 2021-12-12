@@ -2,11 +2,14 @@ package mainpack.utils;
 
 import mainpack.book.Book;
 import mainpack.book.BookISBNSet;
+import mainpack.book.Genre;
 import mainpack.customer.Customer;
 import mainpack.customer.CustomerSet;
 import mainpack.shop.Shop;
 import mainpack.shop.ShopSet;
 import mainpack.shop.StockEntity;
+
+import static mainpack.book.Genre.*;
 
 //I just provide sample data when you need.
 public abstract class SampleData {
@@ -14,7 +17,7 @@ public abstract class SampleData {
     private static final String[] validISBNs = {"978-3608963762", "978-3442267747", "978-758245159", "978-3841335180", "978-3442267819"};
     private static final String[] invalidISBNs = {"978-3333333333", "978-4444444444", "978-555555555", "978-6666666666", "978-7777777777"};
     private static final String[] bookNames = {"TestBook1", "TestBook2", "TestBook3", "TestBook4", "TestBook5"};
-    private static final String[] bookGenres = {"Adventure","Adventure","Adventure","Adventure","Adventure"};
+    private static final Genre[] bookGenres = {Adventure,Adventure,Biography,Comic,Fantasy};
     private static final int[] bookPageNumbers = {100,250,351,400,532};
 
     private static final int[] stockPriceInCents = {200,300,400,600,700};
@@ -41,8 +44,8 @@ public abstract class SampleData {
     public static String getBookName(int index){
         return new String(bookNames[index]);
     }
-    public static String getBookGenre(int index){
-        return new String(bookGenres[index]);
+    public static Genre getBookGenre(int index){
+        return bookGenres[index];
     }
     public static int getBookPageNumbers(int index){
         return bookPageNumbers[index];

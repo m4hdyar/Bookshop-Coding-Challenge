@@ -1,6 +1,7 @@
 package mainpack.shop;
 
 import mainpack.book.BookISBNSet;
+import mainpack.book.Genre;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -115,5 +116,14 @@ public class Shop {
         this.sales += (long) requestedQuantity *stockEntity.getPriceInCents();
     }
 
+    public Set<StockEntity> getNewFilteredSet(Genre genre){
+        Set<StockEntity> newFilteredSet = new HashSet<>();
+        for (StockEntity element : stockSet) {
+            String bookISBN = element.getBookISBN();
+            Genre elementGenre = bookISBNSet.getBookByISBN(bookISBN).getBookGenre();
+            if (elementGenre==genre) newFilteredSet.add(element);
+        }
+        return newFilteredSet;
 
+    }
 }

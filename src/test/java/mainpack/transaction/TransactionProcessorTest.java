@@ -2,6 +2,7 @@ package mainpack.transaction;
 
 import mainpack.book.Book;
 import mainpack.book.BookISBNSet;
+import mainpack.book.Genre;
 import mainpack.customer.Customer;
 import mainpack.customer.CustomerSet;
 import mainpack.shop.Shop;
@@ -32,10 +33,10 @@ class TransactionProcessorTest {
     TransactionProcessor testTransactionProcessor;
 
     Book testBook;
-    String bookTitle= SampleData.getBookName(0),
-            bookGenre=SampleData.getBookGenre(0),
-            bookValidISBN= getValidISBN(0),
-            bookInvalidISBN=SampleData.getInvalidISBN(0);
+    String bookTitle= SampleData.getBookName(0);
+    Genre bookGenre=SampleData.getBookGenre(0);
+    String bookValidISBN= getValidISBN(0);
+    String bookInvalidISBN=SampleData.getInvalidISBN(0);
     int bookPageNumber=SampleData.getBookPageNumbers(0);
 
     StockEntity testStockEntity;

@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 
 class BookTest {
     Book testBook;
-    String bookTitle= SampleData.getBookName(0),
-            bookGenre=SampleData.getBookGenre(0),
-            bookISBN=SampleData.getValidISBN(0);
+    String bookTitle= SampleData.getBookName(0);
+    Genre bookGenre=SampleData.getBookGenre(0);
+    String bookISBN=SampleData.getValidISBN(0);
     int bookPageNumber=SampleData.getBookPageNumbers(0);
 
     @BeforeEach

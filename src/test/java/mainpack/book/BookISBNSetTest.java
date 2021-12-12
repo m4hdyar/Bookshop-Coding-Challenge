@@ -19,15 +19,15 @@ class BookISBNSetTest {
     BookISBNSet testBookISBNSet;
 
     Book firstTestBook;
-    String firstBookTitle = SampleData.getBookName(0),
-            firstBookGenre =SampleData.getBookGenre(0),
-            firstBookISBN =SampleData.getValidISBN(0);
+    String firstBookTitle = SampleData.getBookName(0);
+    Genre firstBookGenre =SampleData.getBookGenre(0);
+    String firstBookISBN =SampleData.getValidISBN(0);
     int firstBookPageNumber =SampleData.getBookPageNumbers(0);
 
     Book secondTestBook;
-    String secondBookTitle=SampleData.getBookName(1),
-            secondBookGenre=SampleData.getBookGenre(1),
-            secondBookISBN=SampleData.getValidISBN(1);
+    String secondBookTitle=SampleData.getBookName(1);
+    Genre secondBookGenre=SampleData.getBookGenre(1);
+    String secondBookISBN=SampleData.getValidISBN(1);
     int secondBookPageNumber=SampleData.getBookPageNumbers(1);
 
     @BeforeEach

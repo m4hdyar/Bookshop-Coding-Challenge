@@ -3,13 +3,12 @@ package mainpack.book;
 import java.util.Objects;
 
 public class Book {
-
     private final String bookTitle;
     private final int bookPageNumber;
-    private final String bookGenre;
+    private final Genre bookGenre;
     private final String bookISBN;
 
-    public Book(String bookTitle, int bookPageNumber, String bookGenre, String bookISBN) {
+    public Book(String bookTitle, int bookPageNumber, Genre bookGenre, String bookISBN) {
 
         this.bookTitle = bookTitle;
         this.bookPageNumber = bookPageNumber;
@@ -25,7 +24,7 @@ public class Book {
         return bookPageNumber;
     }
 
-    public String getBookGenre() {
+    public Genre getBookGenre() {
         return bookGenre;
     }
 
