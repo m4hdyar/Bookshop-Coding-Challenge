@@ -1,12 +1,8 @@
 package mainpack.transaction;
 
-import mainpack.book.Book;
 import mainpack.book.BookISBNSet;
-import mainpack.book.Genre;
 import mainpack.customer.Customer;
-import mainpack.customer.CustomerSet;
 import mainpack.shop.Shop;
-import mainpack.shop.ShopSet;
 import mainpack.shop.StockEntity;
 import mainpack.utils.SampleData;
 import org.junit.jupiter.api.Assertions;
@@ -28,16 +24,9 @@ import static mainpack.utils.SampleData.getValidISBN;
  */
 class TransactionProcessorTest {
     static BookISBNSet bookISBNSet;
-    ShopSet shopSet;
-    CustomerSet customerSet;
     TransactionProcessor testTransactionProcessor;
 
-    Book testBook;
-    String bookTitle= SampleData.getBookName(0);
-    Genre bookGenre=SampleData.getBookGenre(0);
     String bookValidISBN= getValidISBN(0);
-    String bookInvalidISBN=SampleData.getInvalidISBN(0);
-    int bookPageNumber=SampleData.getBookPageNumbers(0);
 
     StockEntity testStockEntity;
     String firstTestBookISBN = getValidISBN(0);
@@ -88,11 +77,10 @@ class TransactionProcessorTest {
 //    }
 
     private void successfulTransaction() throws Exception{
-        testBook=new Book(bookTitle,bookPageNumber,bookGenre,bookValidISBN);
         testRequestedQuantity =stockQuantity/2;
         customerMoneyBeforeTest = stockPriceInCents*testRequestedQuantity*2;
         testCustomer = new Customer(testCustomerID,testCustomerFirstName,testCustomerLastName, customerMoneyBeforeTest);
-        testTransactionProcessor.transact(testBook,testShop,testCustomer, testRequestedQuantity);
+        testTransactionProcessor.transact(bookValidISBN,testShop,testCustomer, testRequestedQuantity);
     }
     @Test
     void enoughMoneyCorrectISBNAndEnoughBookQuantityShouldDeductCustomerMoney(){
@@ -109,53 +97,49 @@ class TransactionProcessorTest {
     @Test
     void enoughMoneyCorrectISBNAndEnoughBookQuantityShouldDeductShopQuantity(){
         Assertions.assertDoesNotThrow(this::successfulTransaction);
-        Assertions.assertEquals(stockQuantity-testRequestedQuantity,testShop.getBookQuantity(testBook.getBookISBN()));
+        Assertions.assertEquals(stockQuantity-testRequestedQuantity,testShop.getBookQuantity(bookValidISBN));
     }
 
     @Test
     void transactionWithNotEnoughMoneyShouldThrowInsufficientMoneyException(){
-        testBook=new Book(bookTitle,bookPageNumber,bookGenre,bookValidISBN);
         testRequestedQuantity =stockQuantity/2;
         customerMoneyBeforeTest = stockPriceInCents*testRequestedQuantity/2;
         testCustomer = new Customer(testCustomerID,testCustomerFirstName,testCustomerLastName, customerMoneyBeforeTest);
-        Assertions.assertThrows(InsufficientMoneyException.class,()->testTransactionProcessor.transact(testBook,testShop,testCustomer, testRequestedQuantity));
+        Assertions.assertThrows(InsufficientMoneyException.class,()->testTransactionProcessor.transact(bookValidISBN,testShop,testCustomer, testRequestedQuantity));
 
         Assertions.assertEquals(customerMoneyBeforeTest,testCustomer.getMoneyInCents());
-        Assertions.assertEquals(stockQuantity,testShop.getBookQuantity(testBook.getBookISBN()));
+        Assertions.assertEquals(stockQuantity,testShop.getBookQuantity(bookValidISBN));
         Assertions.assertEquals(testShopSales,testShop.getSales());
     }
     @Test
     void whenBookISBNNotCorrectShouldThrowIncorrectISBNException(){
-        testBook=new Book(bookTitle,bookPageNumber,bookGenre,SampleData.getInvalidISBN(0));
         testRequestedQuantity =stockQuantity/2;
         customerMoneyBeforeTest = stockPriceInCents*testRequestedQuantity*2;
         testCustomer = new Customer(testCustomerID,testCustomerFirstName,testCustomerLastName, customerMoneyBeforeTest);
-        Assertions.assertThrows(IncorrectISBNException.class,()->testTransactionProcessor.transact(testBook,testShop,testCustomer, testRequestedQuantity));
+        Assertions.assertThrows(IncorrectISBNException.class,()->testTransactionProcessor.transact(SampleData.getInvalidISBN(0),testShop,testCustomer, testRequestedQuantity));
 
         Assertions.assertEquals(customerMoneyBeforeTest,testCustomer.getMoneyInCents());
         Assertions.assertEquals(testShopSales,testShop.getSales());
     }
     @Test
     void whenBookNotInTheShopShouldThrowInsufficientBookQuantity(){
-        testBook=new Book(bookTitle,bookPageNumber,bookGenre,SampleData.getValidISBN(2));
         testRequestedQuantity =stockQuantity/2;
         customerMoneyBeforeTest = stockPriceInCents*testRequestedQuantity*2;
         testCustomer = new Customer(testCustomerID,testCustomerFirstName,testCustomerLastName, customerMoneyBeforeTest);
-        Assertions.assertThrows(InsufficientBookQuantityException.class,()->testTransactionProcessor.transact(testBook,testShop,testCustomer, testRequestedQuantity));
+        Assertions.assertThrows(InsufficientBookQuantityException.class,()->testTransactionProcessor.transact(SampleData.getValidISBN(2),testShop,testCustomer, testRequestedQuantity));
 
         Assertions.assertEquals(customerMoneyBeforeTest,testCustomer.getMoneyInCents());
         Assertions.assertEquals(testShopSales,testShop.getSales());
     }
     @Test
     void whenRequestedQuantityMoreThanShopShouldThrowInsufficientBookQuantity(){
-        testBook=new Book(bookTitle,bookPageNumber,bookGenre,bookValidISBN);
         testRequestedQuantity =stockQuantity*2;
         customerMoneyBeforeTest = stockPriceInCents*testRequestedQuantity*2;
         testCustomer = new Customer(testCustomerID,testCustomerFirstName,testCustomerLastName, customerMoneyBeforeTest);
-        Assertions.assertThrows(InsufficientBookQuantityException.class,()->testTransactionProcessor.transact(testBook,testShop,testCustomer, testRequestedQuantity));
+        Assertions.assertThrows(InsufficientBookQuantityException.class,()->testTransactionProcessor.transact(bookValidISBN,testShop,testCustomer, testRequestedQuantity));
 
         Assertions.assertEquals(customerMoneyBeforeTest,testCustomer.getMoneyInCents());
-        Assertions.assertEquals(stockQuantity,testShop.getBookQuantity(testBook.getBookISBN()));
+        Assertions.assertEquals(stockQuantity,testShop.getBookQuantity(bookValidISBN));
         Assertions.assertEquals(testShopSales,testShop.getSales());
     }
 

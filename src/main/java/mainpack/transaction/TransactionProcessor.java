@@ -23,31 +23,31 @@ public class TransactionProcessor {
         return customerMoney >= bookPrice*requestedQuantity;
     }
 
-    public void transact(Book book, Shop shop, Customer customer, int requestedQuantity) throws InsufficientMoneyException,InsufficientBookQuantityException,IncorrectISBNException{
-        if(!isISBNCorrect(book.getBookISBN())){
+    public void transact(String bookISBN, Shop shop, Customer customer, int requestedQuantity) throws InsufficientMoneyException,InsufficientBookQuantityException,IncorrectISBNException{
+        if(!isISBNCorrect(bookISBN)){
             throw new IncorrectISBNException("Book ISBN is invalid!");
-        }else if(!shop.isISBNExistInThisShop(book.getBookISBN())){
+        }else if(!shop.isISBNExistInThisShop(bookISBN)){
             throw new InsufficientBookQuantityException("The shop does not have the book or the quantity is not enough!");
         }
 
-        int bookQuantity=shop.getBookQuantity(book.getBookISBN());
+        int bookQuantity=shop.getBookQuantity(bookISBN);
         if(!isQuantityEnough(bookQuantity,requestedQuantity)){
             throw new InsufficientBookQuantityException("The shop does not have the book or the quantity is not enough!");
         }
 
-        int moneyToDeductInCents=shop.getBookPrice(book.getBookISBN())*requestedQuantity;
-        int bookPrice=shop.getBookPrice(book.getBookISBN());
+        int moneyToDeductInCents=shop.getBookPrice(bookISBN)*requestedQuantity;
+        int bookPrice=shop.getBookPrice(bookISBN);
         int customerMoney=customer.getMoneyInCents();
 
         if(!isCustomerMoneyEnough(bookPrice,requestedQuantity,customerMoney)){
             throw new InsufficientMoneyException("Customer has not enough money!");
         }else{
-            doTransaction(book, shop, customer, requestedQuantity, moneyToDeductInCents);
+            doTransaction(bookISBN, shop, customer, requestedQuantity, moneyToDeductInCents);
         }
     }
 
-    private void doTransaction(Book book, Shop shop, Customer customer, int requestedQuantity, int moneyToDeductInCents) {
-        shop.buy(book.getBookISBN(), requestedQuantity);
+    private void doTransaction(String bookISBN, Shop shop, Customer customer, int requestedQuantity, int moneyToDeductInCents) {
+        shop.buy(bookISBN, requestedQuantity);
         customer.deductMoney(moneyToDeductInCents);
     }
 
