@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class Customer {
     public int customerID;
-    private String firstName;
-    private String lastName;
+    private final String firstName;
+    private final String lastName;
     private int moneyInCents;
 
     public Customer(int customerID, String firstName, String lastName, int moneyInCents) {
