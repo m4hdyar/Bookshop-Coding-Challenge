@@ -17,7 +17,11 @@ import org.junit.jupiter.api.Test;
     5- Add new Stock Entity with valid ISBN to shop stock.
     6- Don't add Stock Entity with invalid ISBN to shop stock.
     7- Only update quantity and price if new Stock Entity has a book that already exist in the stock.
-    8-
+    8- Buy should add to price to shop sales and deduct quantity from stock entity
+    10- Buy should remove Stock entity when requested quantity == Stock entity quantity
+    11- ISBNExists should return true if the book exists
+    12- ISBNExists should return false if the book not exists
+    13- getBookPrice should return the price of the stock entity of that ISBN
     In Progress:
  */
 class ShopTest {
@@ -118,4 +122,45 @@ class ShopTest {
     }
 
 
+    @Test
+    void buyShouldAddPriceToShopSalesAndDeductQuantityIfQuantityMoreThanRequested() {
+        testShop.addStockEntityToStock(testStockEntity);
+        int requestedQuantity = testStockEntity.getQuantity()/2;
+
+        int quantityBeforeTest=testStockEntity.getQuantity();
+        long salesBeforeTest=testShop.getSales();
+        testShop.buy(testStockEntity,requestedQuantity);
+
+        Assertions.assertEquals(quantityBeforeTest-requestedQuantity, testStockEntity.getQuantity());
+        Assertions.assertEquals(salesBeforeTest+((long) testStockEntity.getPriceInCents() * requestedQuantity), testShop.getSales());
+    }
+    @Test
+    void buyShouldAddPriceToShopSalesAndRemoveStockEntityFromSetIfQuantitySameAsRequested() {
+        testShop.addStockEntityToStock(testStockEntity);
+        int requestedQuantity = testStockEntity.getQuantity();
+
+        int stockSetSizeBeforeTest=testShop.getStockSetSize();
+        long salesBeforeTest=testShop.getSales();
+        testShop.buy(testStockEntity,requestedQuantity);
+
+        Assertions.assertEquals(stockSetSizeBeforeTest-1, testShop.getStockSetSize());
+        Assertions.assertEquals(salesBeforeTest+((long) testStockEntity.getPriceInCents() * requestedQuantity), testShop.getSales());
+    }
+
+    @Test
+    void isbnExistsShouldReturnTrueWhenISBNExistsInTheStock() {
+        testShop.addStockEntityToStock(testStockEntity);
+        Assertions.assertTrue(testShop.doesISBNExistInThisShop(testStockEntity.getBookISBN()));
+    }
+    @Test
+    void isbnExistsShouldReturnFalseWhenISBNDoesNotExistInTheStock() {
+        testShop.addStockEntityToStock(testStockEntity);
+        Assertions.assertFalse(testShop.doesISBNExistInThisShop(SampleData.getValidISBN(2)));
+    }
+
+    @Test
+    void getBookPriceShouldReturnPriceOfThePriceOfStockEntity() {
+        testShop.addStockEntityToStock(testStockEntity);
+        Assertions.assertEquals(testStockEntity.getPriceInCents(),testShop.getBookPrice(testStockEntity.getBookISBN()));
+    }
 }

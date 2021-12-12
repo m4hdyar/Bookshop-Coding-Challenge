@@ -54,4 +54,18 @@ class StockEntityTest {
         Assertions.assertThrows(IllegalArgumentException.class,()->new StockEntity(firstTestBookISBN,100,-300));
     }
 
+    @Test
+    void deductQuantityShouldDecreaseQuantityIfQuantityIs0OrMoreThanRequested() {
+        int stockQuantityBeforeTest = testStockEntity.getQuantity();
+        int testRequestedQuantity = stockQuantityBeforeTest/2;
+        testStockEntity.deductQuantity(testRequestedQuantity);
+        Assertions.assertEquals(stockQuantityBeforeTest-testRequestedQuantity,testStockEntity.getQuantity());
+    }
+
+    @Test
+    void deductQuantityShouldThrowExceptionIfQuantityIsLessThanRequested() {
+        int stockQuantityBeforeTest = testStockEntity.getQuantity();
+        int testRequestedQuantity = stockQuantityBeforeTest+1;
+        Assertions.assertThrows(IllegalStateException.class, ()->testStockEntity.deductQuantity(testRequestedQuantity));
+    }
 }

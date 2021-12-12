@@ -43,4 +43,11 @@ public class StockEntity {
         quantity+=newStockEntity.getQuantity();
         priceInCents=newStockEntity.getPriceInCents();
     }
+    public void deductQuantity(int testRequestedQuantity){
+        if(quantity>=testRequestedQuantity){
+            quantity-=testRequestedQuantity;
+        }else{
+            throw new IllegalStateException("Stock Entity cannot have negative value");
+        }
+    }
 }

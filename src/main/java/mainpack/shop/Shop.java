@@ -7,8 +7,8 @@ import java.util.Objects;
 import java.util.Set;
 
 public class Shop {
-    private int ID;
-    private String name;
+    private final int ID;
+    private final String name;
     private long sales;
 
     private final Set<StockEntity> stockSet = new HashSet<>();
@@ -45,6 +45,21 @@ public class Shop {
         return null;
     }
 
+    public boolean doesISBNExistInThisShop(String bookIsbn){
+        StockEntity stockEntity = getStockEntityByISBN(bookIsbn);
+
+        return stockEntity != null;
+    }
+    public int getBookPrice(String bookIsbn){
+        StockEntity stockEntity = getStockEntityByISBN(bookIsbn);
+
+        if (stockEntity != null) {
+            return stockEntity.getPriceInCents();
+        }else{
+            throw new NullPointerException("ISBN Does not exists!");
+        }
+    }
+
     public void addStockEntityToStock(StockEntity newStockEntity) throws IllegalArgumentException {
         StockEntity existingStockEntity = getStockEntityByISBN(newStockEntity.getBookISBN());
         if(existingStockEntity==null){
@@ -78,5 +93,14 @@ public class Shop {
     @Override
     public int hashCode() {
         return Objects.hash(ID);
+    }
+
+    public void buy(StockEntity stockEntity, int requestedQuantity) {
+        if(stockEntity.getQuantity()==requestedQuantity){
+            stockSet.remove(stockEntity);
+        }else{
+            stockEntity.deductQuantity(requestedQuantity);
+        }
+        this.sales += (long) requestedQuantity *stockEntity.getPriceInCents();
     }
 }
