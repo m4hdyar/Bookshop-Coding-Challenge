@@ -5,6 +5,7 @@ import mainpack.book.Genre;
 import mainpack.utils.SampleData;
 import org.junit.jupiter.api.*;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 /*
@@ -24,6 +25,9 @@ import java.util.Set;
     13- getBookPrice should return the price of the stock entity of that ISBN
     14- getNewFilteredSet should return a set with 2 book when the shop has 2 books with matching Genre
     15- getNewFilteredSet should return empty set when Genre does not match with books in the shop stock
+    16- Compare book with shop with no matching book should return empty list
+    17- compare book of two shops with 1 matching book should return list of StockEntityPair having an Entity
+    18- compare book of two shops with 2 matching book should return list of StockEntityPair having 2 Entity
     In Progress:
  */
 class ShopTest {
@@ -191,5 +195,71 @@ class ShopTest {
 
         Set<StockEntity> newFilteredSet= testShop.getNewFilteredSet(testingGenre);
         Assertions.assertEquals(0,newFilteredSet.size());
+    }
+
+    @Test
+    void compareBooksWithShopNoMatchingBookShouldReturnEmptyList() {
+        StockEntity secondTestStockEntity=new StockEntity(SampleData.getValidISBN(1),firstTestBookPrice,firstTestBookQuantity);
+        testShop.addStockEntityToStock(testStockEntity);
+        testShop.addStockEntityToStock(secondTestStockEntity);
+
+
+        int testSecondShopID=SampleData.getShopID(1);
+        String testSecondShopName= SampleData.getShopName(1);
+        long testSecondShopSales=SampleData.getShopSalesInCents(1);
+        Shop testSecondShop=new Shop(bookISBNSet,testSecondShopID,testSecondShopName,testSecondShopSales);
+        StockEntity firstStockEntityOfSecondShop=new StockEntity(SampleData.getValidISBN(2),SampleData.getStockPriceInCents(2),SampleData.getStockQuantity(2));
+        StockEntity secondStockEntityOfSecondShop=new StockEntity(SampleData.getValidISBN(3),SampleData.getStockPriceInCents(3),SampleData.getStockQuantity(3));
+        testSecondShop.addStockEntityToStock(firstStockEntityOfSecondShop);
+        testSecondShop.addStockEntityToStock(secondStockEntityOfSecondShop);
+
+        ArrayList<StockEntityComparePair> compareResultList = testShop.compareBooksWithShop(testSecondShop);
+        Assertions.assertInstanceOf(ArrayList.class,compareResultList);
+        Assertions.assertEquals(0,compareResultList.size());
+
+    }
+    @Test
+    void compareBooksWithShop1MatchingBookShouldReturnListWithSize1() {
+        StockEntity secondTestStockEntity=new StockEntity(SampleData.getValidISBN(1),firstTestBookPrice,firstTestBookQuantity);
+        testShop.addStockEntityToStock(testStockEntity);
+        testShop.addStockEntityToStock(secondTestStockEntity);
+
+
+        int testSecondShopID=SampleData.getShopID(1);
+        String testSecondShopName= SampleData.getShopName(1);
+        long testSecondShopSales=SampleData.getShopSalesInCents(1);
+        Shop testSecondShop=new Shop(bookISBNSet,testSecondShopID,testSecondShopName,testSecondShopSales);
+        StockEntity firstStockEntityOfSecondShop=new StockEntity(SampleData.getValidISBN(0),SampleData.getStockPriceInCents(2),SampleData.getStockQuantity(2));
+        StockEntity secondStockEntityOfSecondShop=new StockEntity(SampleData.getValidISBN(3),SampleData.getStockPriceInCents(3),SampleData.getStockQuantity(3));
+        testSecondShop.addStockEntityToStock(firstStockEntityOfSecondShop);
+        testSecondShop.addStockEntityToStock(secondStockEntityOfSecondShop);
+
+        ArrayList<StockEntityComparePair> compareResultList = testShop.compareBooksWithShop(testSecondShop);
+        Assertions.assertInstanceOf(ArrayList.class,compareResultList);
+        Assertions.assertInstanceOf(StockEntityComparePair.class,compareResultList.get(0));
+        Assertions.assertEquals(1,compareResultList.size());
+
+    }
+    @Test
+    void compareBooksWithShop2MatchingBookShouldReturnListWithSize2() {
+        StockEntity secondTestStockEntity=new StockEntity(SampleData.getValidISBN(1),firstTestBookPrice,firstTestBookQuantity);
+        testShop.addStockEntityToStock(testStockEntity);
+        testShop.addStockEntityToStock(secondTestStockEntity);
+
+
+        int testSecondShopID=SampleData.getShopID(1);
+        String testSecondShopName= SampleData.getShopName(1);
+        long testSecondShopSales=SampleData.getShopSalesInCents(1);
+        Shop testSecondShop=new Shop(bookISBNSet,testSecondShopID,testSecondShopName,testSecondShopSales);
+        StockEntity firstStockEntityOfSecondShop=new StockEntity(SampleData.getValidISBN(0),SampleData.getStockPriceInCents(2),SampleData.getStockQuantity(2));
+        StockEntity secondStockEntityOfSecondShop=new StockEntity(SampleData.getValidISBN(1),SampleData.getStockPriceInCents(3),SampleData.getStockQuantity(3));
+        testSecondShop.addStockEntityToStock(firstStockEntityOfSecondShop);
+        testSecondShop.addStockEntityToStock(secondStockEntityOfSecondShop);
+
+        ArrayList<StockEntityComparePair> compareResultList = testShop.compareBooksWithShop(testSecondShop);
+        Assertions.assertInstanceOf(ArrayList.class,compareResultList);
+        Assertions.assertInstanceOf(StockEntityComparePair.class,compareResultList.get(0));
+        Assertions.assertEquals(2,compareResultList.size());
+
     }
 }

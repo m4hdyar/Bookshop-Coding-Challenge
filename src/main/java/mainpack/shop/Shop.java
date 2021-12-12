@@ -3,10 +3,12 @@ package mainpack.shop;
 import mainpack.book.BookISBNSet;
 import mainpack.book.Genre;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+//TODO:Shop should be refactored into two classes.
 public class Shop {
     private final int ID;
     private final String name;
@@ -124,6 +126,19 @@ public class Shop {
             if (elementGenre==genre) newFilteredSet.add(element);
         }
         return newFilteredSet;
+    }
 
+    public ArrayList<StockEntityComparePair> compareBooksWithShop(Shop secondShop){
+        ArrayList<StockEntityComparePair> stockEntityCompareResult= new ArrayList<>();
+        for (StockEntity firstStockEntity : this.stockSet) {
+            for (StockEntity secondStockEntity : secondShop.stockSet) {
+                if(firstStockEntity.equals(secondStockEntity)){
+                    stockEntityCompareResult.add(new StockEntityComparePair(firstStockEntity,secondStockEntity));
+                    //ISBNs in Sets are unique, so you don't need to check the rest of the elements
+                    break;
+                }
+            }
+        }
+        return stockEntityCompareResult;
     }
 }
