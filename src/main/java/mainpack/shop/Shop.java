@@ -95,7 +95,9 @@ public class Shop {
         return Objects.hash(ID);
     }
 
-    public void buy(StockEntity stockEntity, int requestedQuantity) {
+    public void buy(String bookISBN, int requestedQuantity) {
+        StockEntity stockEntity = getStockEntityByISBN(bookISBN);
+        if (stockEntity == null) throw new NullPointerException("You can't buy a book that does not exist in a shop!");
         if(stockEntity.getQuantity()==requestedQuantity){
             stockSet.remove(stockEntity);
         }else{

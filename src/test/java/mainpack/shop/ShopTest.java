@@ -129,7 +129,7 @@ class ShopTest {
 
         int quantityBeforeTest=testStockEntity.getQuantity();
         long salesBeforeTest=testShop.getSales();
-        testShop.buy(testStockEntity,requestedQuantity);
+        testShop.buy(testStockEntity.getBookISBN(),requestedQuantity);
 
         Assertions.assertEquals(quantityBeforeTest-requestedQuantity, testStockEntity.getQuantity());
         Assertions.assertEquals(salesBeforeTest+((long) testStockEntity.getPriceInCents() * requestedQuantity), testShop.getSales());
@@ -141,7 +141,7 @@ class ShopTest {
 
         int stockSetSizeBeforeTest=testShop.getStockSetSize();
         long salesBeforeTest=testShop.getSales();
-        testShop.buy(testStockEntity,requestedQuantity);
+        testShop.buy(testStockEntity.getBookISBN(),requestedQuantity);
 
         Assertions.assertEquals(stockSetSizeBeforeTest-1, testShop.getStockSetSize());
         Assertions.assertEquals(salesBeforeTest+((long) testStockEntity.getPriceInCents() * requestedQuantity), testShop.getSales());
