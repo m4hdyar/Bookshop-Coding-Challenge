@@ -45,7 +45,7 @@ public class Shop {
         return null;
     }
 
-    public boolean doesISBNExistInThisShop(String bookIsbn){
+    public boolean isISBNExistInThisShop(String bookIsbn){
         StockEntity stockEntity = getStockEntityByISBN(bookIsbn);
 
         return stockEntity != null;
@@ -55,6 +55,15 @@ public class Shop {
 
         if (stockEntity != null) {
             return stockEntity.getPriceInCents();
+        }else{
+            throw new NullPointerException("ISBN Does not exists!");
+        }
+    }
+    public int getBookQuantity(String bookIsbn) {
+        StockEntity stockEntity = getStockEntityByISBN(bookIsbn);
+
+        if (stockEntity != null) {
+            return stockEntity.getQuantity();
         }else{
             throw new NullPointerException("ISBN Does not exists!");
         }
@@ -105,4 +114,6 @@ public class Shop {
         }
         this.sales += (long) requestedQuantity *stockEntity.getPriceInCents();
     }
+
+
 }

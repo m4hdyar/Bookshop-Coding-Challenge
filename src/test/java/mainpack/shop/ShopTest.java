@@ -150,12 +150,12 @@ class ShopTest {
     @Test
     void isbnExistsShouldReturnTrueWhenISBNExistsInTheStock() {
         testShop.addStockEntityToStock(testStockEntity);
-        Assertions.assertTrue(testShop.doesISBNExistInThisShop(testStockEntity.getBookISBN()));
+        Assertions.assertTrue(testShop.isISBNExistInThisShop(testStockEntity.getBookISBN()));
     }
     @Test
     void isbnExistsShouldReturnFalseWhenISBNDoesNotExistInTheStock() {
         testShop.addStockEntityToStock(testStockEntity);
-        Assertions.assertFalse(testShop.doesISBNExistInThisShop(SampleData.getValidISBN(2)));
+        Assertions.assertFalse(testShop.isISBNExistInThisShop(SampleData.getValidISBN(2)));
     }
 
     @Test
