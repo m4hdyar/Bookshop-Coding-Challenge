@@ -1,7 +1,5 @@
 package mainpack.book;
 
-import mainpack.book.Book;
-import mainpack.book.BookISBNSet;
 import mainpack.utils.SampleData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +16,7 @@ import org.junit.jupiter.api.Test;
     6- Add two nonidentical books to the set
  */
 class BookISBNSetTest {
-    BookISBNSet testBookISBNList;
+    BookISBNSet testBookISBNSet;
 
     Book firstTestBook;
     String firstBookTitle = SampleData.getBookName(0),
@@ -40,76 +38,76 @@ class BookISBNSetTest {
 
     @BeforeEach
     void BookISBNList(){
-        testBookISBNList= new BookISBNSet();
+        testBookISBNSet = new BookISBNSet();
     }
 
     @Test
     void addABookToTheSet(){
-        testBookISBNList.addBook(firstTestBook);
-        Book actualBook = testBookISBNList.getBookByISBN(firstBookISBN);
+        testBookISBNSet.addBook(firstTestBook);
+        Book actualBook = testBookISBNSet.getBookByISBN(firstBookISBN);
         Assertions.assertEquals(firstTestBook,actualBook);
     }
 
     @Test
     void removeABookFromASetWith1BookShouldResultInEmptySet(){
-        testBookISBNList.addBook(firstTestBook);
-        testBookISBNList.removeBook(firstTestBook);
+        testBookISBNSet.addBook(firstTestBook);
+        testBookISBNSet.removeBook(firstTestBook);
 
-        Assertions.assertEquals(0,testBookISBNList.getSetSize());
+        Assertions.assertEquals(0, testBookISBNSet.getSetSize());
     }
 
     @Test
     void removeABookFromASetWith2Book(){
-        testBookISBNList.addBook(firstTestBook);
-        testBookISBNList.addBook(secondTestBook);
-        testBookISBNList.removeBook(firstTestBook);
+        testBookISBNSet.addBook(firstTestBook);
+        testBookISBNSet.addBook(secondTestBook);
+        testBookISBNSet.removeBook(firstTestBook);
 
-        Book actualBook = testBookISBNList.getBookByISBN(secondBookISBN);
+        Book actualBook = testBookISBNSet.getBookByISBN(secondBookISBN);
         Assertions.assertEquals(secondTestBook,actualBook);
 
-        actualBook = testBookISBNList.getBookByISBN(firstBookISBN);
+        actualBook = testBookISBNSet.getBookByISBN(firstBookISBN);
         Assertions.assertNull(actualBook);
 
-        Assertions.assertEquals(1, testBookISBNList.getSetSize());
+        Assertions.assertEquals(1, testBookISBNSet.getSetSize());
     }
 
     @Test
     void getABookWhenTheBookExistsInTheSet(){
-        testBookISBNList.addBook(firstTestBook);
+        testBookISBNSet.addBook(firstTestBook);
 
-        Book actualBook = testBookISBNList.getBookByISBN(firstBookISBN);
+        Book actualBook = testBookISBNSet.getBookByISBN(firstBookISBN);
         Assertions.assertEquals(firstTestBook,actualBook);
     }
 
     @Test
     void getABookWhenTheBookDoesNotExistInTheSetShouldReturnNull(){
-        testBookISBNList.addBook(firstTestBook);
+        testBookISBNSet.addBook(firstTestBook);
 
-        Book actualBook = testBookISBNList.getBookByISBN(secondBookISBN);
+        Book actualBook = testBookISBNSet.getBookByISBN(secondBookISBN);
         Assertions.assertNull(actualBook);
     }
 
     @Test
     void addTwoBooksWithIdenticalISBNToSetShouldNotAddSecondBook(){
         boolean isAddingSuccessful;
-        testBookISBNList.addBook(firstTestBook);
+        testBookISBNSet.addBook(firstTestBook);
 
         Book secondBookWithEqualISBN=new Book(firstTestBook.getBookTitle(),firstTestBook.getBookPageNumber(),firstTestBook.getBookGenre(),firstTestBook.getBookISBN());
-        isAddingSuccessful=testBookISBNList.addBook(secondBookWithEqualISBN);
+        isAddingSuccessful= testBookISBNSet.addBook(secondBookWithEqualISBN);
 
         Assertions.assertFalse(isAddingSuccessful);
-        Assertions.assertEquals(1,testBookISBNList.getSetSize());
+        Assertions.assertEquals(1, testBookISBNSet.getSetSize());
     }
     @Test
     void addTwoBooksWithDifferentISBNToSetShouldAddSecondBook(){
         boolean isAddingSuccessful;
-        testBookISBNList.addBook(firstTestBook);
+        testBookISBNSet.addBook(firstTestBook);
 
         Book secondBookWithDifferentISBN=new Book(firstTestBook.getBookTitle(),firstTestBook.getBookPageNumber(),firstTestBook.getBookGenre(),
                 secondTestBook.getBookISBN());
-        isAddingSuccessful=testBookISBNList.addBook(secondBookWithDifferentISBN);
+        isAddingSuccessful= testBookISBNSet.addBook(secondBookWithDifferentISBN);
 
         Assertions.assertTrue(isAddingSuccessful);
-        Assertions.assertEquals(2,testBookISBNList.getSetSize());
+        Assertions.assertEquals(2, testBookISBNSet.getSetSize());
     }
 }
